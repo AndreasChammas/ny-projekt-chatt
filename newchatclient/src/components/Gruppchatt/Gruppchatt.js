@@ -17,7 +17,6 @@ class ChattMsg extends React.Component {
       this.setState({ inputMessage: event.target.value });
     }
     
-  
     render() { console.log(localStorage.getItem("username"));
       return <div className="chatt-input">
         <input className="input-field" placeholder="Börja Chatta" onChange={this.onTextChange}></input>

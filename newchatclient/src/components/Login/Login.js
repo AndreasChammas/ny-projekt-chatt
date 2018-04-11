@@ -48,13 +48,19 @@ class Login extends React.Component {
             that.setState({ loggedIn: true })
           } else {alert('Fel lösenord')};
         })
+<<<<<<< HEAD
       localStorage.setItem("username", this.state.username);
+=======
+
+      sessionStorage.setItem("username", this.state.username);
+
+>>>>>>> 819a8a697a7f5672efe05fe45c441fb7dcaa70a9
     }
 
     render() {
       if (this.state.loggedIn) {
         return <Redirect to="/gruppchatt" />
-      } 
+      }
 
       return (
         <div className="container">
@@ -72,7 +78,7 @@ class Login extends React.Component {
               </form>
              <Reg />
           </div>
-        </div>      
+        </div>
       );
     }
   };
