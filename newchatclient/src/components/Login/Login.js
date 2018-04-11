@@ -33,7 +33,6 @@ class Login extends React.Component {
 
     handleSubmit(event) {
       event.preventDefault();
-
       const that = this;
 
       fetch('http://localhost:3003/api/inlogg', {
@@ -50,7 +49,7 @@ class Login extends React.Component {
           } else {alert('Fel lösenord')};
         })
 
-      localStorage.setItem("username", this.state.username);
+      sessionStorage.setItem("username", this.state.username);
 
     }
 

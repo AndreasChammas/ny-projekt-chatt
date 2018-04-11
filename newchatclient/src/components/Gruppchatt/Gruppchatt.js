@@ -3,6 +3,7 @@ import React from 'react';
 
 import './gruppchatt.css';
 
+
 // komponent för att lägga till meddelande i databasen som användaren skriver i inputfältet.
 class ChattMsg extends React.Component {
     constructor(props) {
@@ -15,11 +16,11 @@ class ChattMsg extends React.Component {
     onTextChange(event) {
       this.setState({ inputMessage: event.target.value });
     }
-
+    
     render() { console.log(localStorage.getItem("username"));
       return <div className="chatt-input">
         <input className="input-field" placeholder="Börja Chatta" onChange={this.onTextChange}></input>
-        <button className="send-btn" onClick={() => {
+        <button type="submit" className="send-btn" onClick={() => {
           fetch('http://localhost:3003/api/gruppchatt', {
             body: '{ "publicSender": "' + localStorage.getItem("username") + '", "publicText": "' + this.state.inputMessage + '" }',
             headers: {
@@ -32,10 +33,12 @@ class ChattMsg extends React.Component {
             console.log(result);
           });
         }}>Send</button>
+        
         </div>
+       
     }
   };
-
+  
   // komponent för att hämta databas collection "users" och sedan skriva ut det i chattbox diven.
   class MsgOutput extends React.Component {
     constructor(props) {
@@ -43,12 +46,13 @@ class ChattMsg extends React.Component {
       this.state = {
         data: []
       };
-
+  
     }
-
+  
   componentDidMount() {
   setInterval(function () {
-
+  
+  
     fetch('http://localhost:3003/api/gruppchatt').then(function (response) {
     return response.json();
   }).then(function (result) {
@@ -58,7 +62,7 @@ class ChattMsg extends React.Component {
     }.bind(this))
   }.bind(this), 1000)
   }
-
+  
   render() {
     return this.state.data.map(function (msg) {
       return <p className="p-chatt-styling" key={msg._id}>{msg.publicSender}: {msg.publicText}</p>;
@@ -66,7 +70,7 @@ class ChattMsg extends React.Component {
       )
     }
   };
-
+  
   class UsersList extends React.Component {
     constructor(props) {
       super();
@@ -74,7 +78,7 @@ class ChattMsg extends React.Component {
         usersData: []
       };
     }
-
+  
     componentDidMount() {
         fetch('http://localhost:3003/api/inlogg').then(function (response) {
           return response.json();
@@ -82,10 +86,10 @@ class ChattMsg extends React.Component {
           this.setState({
             usersData: result
           });
-
+  
         }.bind(this))
       }
-
+  
       render () {
         return this.state.usersData.map(function (user) {
                     return <li key={user._id}>{user.userName}</li>;
@@ -93,8 +97,8 @@ class ChattMsg extends React.Component {
                 )
               }
   }
-
-
+  
+  
   /* var Sidebar = createReactClass({
     render: function(){
       return <div className="container">
@@ -110,7 +114,7 @@ class ChattMsg extends React.Component {
         </div>
     }
   });
-
+  
   */
 
 
@@ -133,3 +137,4 @@ class Gruppchatt extends React.Component {
 }
 
 export default Gruppchatt;
+  
