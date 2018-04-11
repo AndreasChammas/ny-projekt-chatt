@@ -3,6 +3,7 @@ import React from 'react';
 
 import './gruppchatt.css';
 
+
 // komponent för att lägga till meddelande i databasen som användaren skriver i inputfältet.
 class ChattMsg extends React.Component {
     constructor(props) {
@@ -15,12 +16,13 @@ class ChattMsg extends React.Component {
     onTextChange(event) {
       this.setState({ inputMessage: event.target.value });
     }
+    
   
     render() { console.log(localStorage.getItem("username"));
       return <div className="chatt-input">
         <input className="input-field" placeholder="Börja Chatta" onChange={this.onTextChange}></input>
-        <button className="send-btn" onClick={() => {
-          fetch('http://localhost:3000/api/gruppchatt', {
+        <button type="submit" className="send-btn" onClick={() => {
+          fetch('http://localhost:3003/api/gruppchatt', {
             body: '{ "publicSender": "' + localStorage.getItem("username") + '", "publicText": "' + this.state.inputMessage + '" }',
             headers: {
               'Content-Type': 'application/json'
@@ -32,7 +34,9 @@ class ChattMsg extends React.Component {
             console.log(result);
           });
         }}>Send</button>
+        
         </div>
+       
     }
   };
   
@@ -50,7 +54,7 @@ class ChattMsg extends React.Component {
   setInterval(function () {
   
   
-    fetch('http://localhost:3000/api/gruppchatt').then(function (response) {
+    fetch('http://localhost:3003/api/gruppchatt').then(function (response) {
     return response.json();
   }).then(function (result) {
       this.setState({
@@ -77,7 +81,7 @@ class ChattMsg extends React.Component {
     }
   
     componentDidMount() {
-        fetch('http://localhost:3000/api/inlogg').then(function (response) {
+        fetch('http://localhost:3003/api/inlogg').then(function (response) {
           return response.json();
         }).then(function (result) {
           this.setState({
